@@ -1,0 +1,31 @@
+{% extends 'expensense/base.html' %}
+{% load static %}
+
+{% block title_block %}
+Login
+{% endblock %}
+
+{% block new_body_block %}
+<div class=" row mt-2 pt-4 justify-content-center">
+    <div class="row border rounded shadow mt-4 p-5 justify-content-center custom-card" id="home-login-form">
+        <h2 class="text-center"> Login to your ExpenSense Account</h2>
+        <div class="d-flex justify-content-center main-text">
+            <form id="login_form" action="{% url 'expensense:login' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="inputUsername" class="form-label">Username</label>
+                    <input class="form-control mb-3" id="inputUsername" type="text" name="username" value="" size="50"
+                        placeholder="Your Username" />
+                    <label for="inputPassword" class="form-label ">Password</label>
+                    <input class="form-control" id="inputPassword" type="password" name="password" value="" size="50"
+                        placeholder="Your Password" />
+                </div>
+                <div class="row m-3 p-2 ps-6 pe-6">
+                    <input class="btn btn-custom" type="submit" value="Login"/>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

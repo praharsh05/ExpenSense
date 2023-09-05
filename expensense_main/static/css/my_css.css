@@ -1,0 +1,369 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+:root{
+    /* Colours */
+    --body-color: #ebeced;
+    --sidebar-color:#fcfcfc;
+    --primary-color: #234E70;
+    --primary-color-light: #F6F5FF;
+    --toggle-color: #DDD;
+    --text-color: #2b2b2b;
+    --text-color-body: #2f2f2f;
+
+    /* transition */
+    --tran-02: all 0.2s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.4s ease;
+    --tran-05: all 0.5s ease;
+}
+
+body{
+    height: 100%;
+    width: 100%;
+    min-height: 100vh;
+    background: var(--body-color);
+    transition: var(--tran-03);
+    display: flex;
+    flex-direction: column;
+    background: #4b6cb7;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+
+
+/* Sidebar */
+.sidebar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    padding: 10px 14px;
+    background: var(--sidebar-color);
+    transition: var(--tran-05);
+    z-index: 100;
+}
+
+.sidebar.close{
+    width: 86px;
+}
+
+/* Resuable CSS */
+
+.sidebar .text{
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-color);
+    transition: var(--tran-03);
+    /* white-space: nowrap; */
+    opacity: 1;
+}
+
+.sidebar.close .text{
+    opacity: 0;
+    display: none;
+}
+
+.sidebar .image{
+    min-width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar li{
+    height: 50px;
+    margin-top: 10px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar li .icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
+    font-size: 20px;
+}
+
+.sidebar li .text,
+.sidebar li .icon{
+    color: var(--text-color);
+    transition: var(--tran-02);
+}
+
+.sidebar header{
+    position: relative;
+}
+
+.sidebar .image-text img{
+    width: 50px;
+    mix-blend-mode: multiply;
+    border-radius: 6px;
+}
+
+.sidebar header .image-text{
+    display: flex;
+    align-items: center;
+}
+
+header .image-text .header-text{
+    display: flex;
+    flex-direction: column;
+}
+
+.header-text .name{
+    font-weight: 600;
+}
+
+.header-text .company{
+    margin-top: -2px;
+}
+
+.sidebar header .toggle{
+    position: absolute;
+    top: 50%;
+    right: -25px;
+    transform: translateY(-50%) rotate(180deg);
+    height: 25px;
+    width: 25px;
+    background: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--body-color);
+    font-size: 22px;
+    transition: var(--tran-03);
+}
+
+.sidebar.close header .toggle{
+    transform: translateY(-50%);
+}
+
+.sidebar .menu{
+    margin-top: 35px;
+}
+
+.sidebar li a{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: var(--tran-04);
+}
+
+.sidebar li a:hover{
+    background: var(--primary-color);
+}
+
+.sidebar li a:hover .icon,
+.sidebar li a:hover .text{
+    color: var(--sidebar-color);
+}
+
+.sidebar .menu-bar{
+    height: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.home{
+    position: relative;
+    left: 250px;
+    height: 100%;
+    min-height: 100vh;
+    width: calc(100% - 250px);
+    transition: var(--tran-05);
+    display: flex;
+    flex-direction: column;
+    /* The background code has been taken from https://uigradients.com/#AzurLane */
+    background: #7F7FD5;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.home .text{
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-color-body);
+    padding: 8px 40px;
+}
+
+.sidebar.close ~ .home{
+    left: 86px;
+    width: calc(100% - 86px);
+}
+
+
+#nav-logo{
+    max-width: 50%;
+    mix-blend-mode: multiply;
+}
+
+footer{
+    display: flex;
+    margin-top: auto;
+    padding: 10px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#home-login-form{
+    max-width: 50%;
+}
+
+#login-form-headline{
+    text-align: center;
+}
+
+#home-login-btn{
+    text-align: center;
+}
+
+.btn-custom{
+    color: white;
+    background-color: var(--primary-color);
+}
+
+.btn-custom:hover{
+    background-color: #FBF8BE;
+    color: var(--primary-color);
+}
+
+#id_categories{
+    margin-top: 2px;
+    list-style: none;
+}
+
+#id_company{
+    width: 100%;
+}
+
+.report-links{
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+h2{
+    font-weight: 700;
+}
+
+h5{
+    font-weight: 600;
+}
+
+th{
+    font-weight: 500;
+}
+
+td{
+    font-weight: 400;
+}
+
+#th_element{
+    background: var(--primary-color);
+    color: white;
+}
+
+
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .loader-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(149, 146, 146, 0.53);
+    filter: blur(8px);
+    z-index: -1;
+  }
+
+/* #Loader, @-webkit-keyframes spin and @keyframes spin CSS taken from W3schools */
+#loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 100;
+    width: 120px;
+    height: 120px;
+    margin: -76px 0 0 -76px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid var(--primary-color);
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+  }
+  
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+.custom_category{
+    margin-right: -8px;
+}
+
+.footer-para{
+    margin-bottom: 0;
+}
+
+.custom-card{
+    background: var(--sidebar-color);
+}
+
+.introduction{
+    margin-top: 80px;
+}
+
+.introduction-text{
+    text-align: right;
+    text-align: -webkit-right;
+    color: white;
+}
+
+.introduction-img{
+    max-width: 130%;
+    filter: drop-shadow(20px 10px 4px);
+}
+
+.main-text{
+    margin-top: 30px;
+    font-size: larger;
+    text-align: right;
+    color: white;
+    font-weight: 500;
+}
+
+.custom-home-nav{
+    background-color: rgba(255, 255, 255, 0.1);
+}

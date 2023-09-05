@@ -1,0 +1,53 @@
+{% extends 'expensense/base.html' %}
+{% load static %}
+
+{% block title_block %}
+Home
+{% endblock %}
+
+{% block new_body_block %}
+<div class="row introduction">
+    <div class="col-md-5 px-3 d-none d-md-block justify-content-start">
+        <img class="img-fluid animate__animated animate__fadeInLeft introduction-img"
+            src="{% static 'images/home-side.png' %}" alt="animated picture of a team colaborating with growth animation">
+    </div>
+    <div class="col introduction-text align-items-center mt-5 pt-3">
+        <h1 class="text-end animate__animated animate__fadeInRight introduction-heading">Welcome to ExpenSense</h1>
+        <h4 class="text-end animate__animated animate__fadeInRight">The Premier Expense Management Application</h4>
+        <p class="main-text col-9 animate__animated animate__fadeInRight">Automated expense
+            management software available for small and medium-sized businesses. Our online tool simplifies the process
+            of tracking and
+            reporting on your business's expenses. Automating approval tasks which saves your time and money.
+            ExpenSense's
+            receipt-scanning and real-time analytics can help you make sense of your expenses</p>
+    </div>
+</div>
+<div class="row mb-5 justify-content-center p-3">
+    <!-- <h3 class="text-center"style="color: white;">Login/Register</h3> -->
+    <div class="row border rounded shadow mt-4 p-5 justify-content-center custom-card" id="home-login-form">
+        <h4 id="login-form-headline">Login / Register into your Account</h4>
+        <form action="{% url 'expensense:login' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="inputUsername" class="form-label m-1">Username</label>
+                <input class="form-control m-1" id="inputUsername" type="text" name="username" value="" size="50"
+                    required="true" placeholder="Username" />
+                <label for="inputPassword" class="form-label m-1">Password</label>
+                <input class="form-control m-1" id="inputPassword" type="password" name="password" value="" size="50"
+                    required="true" placeholder="Password" />
+            </div>
+            <div class="row pt-2">
+                <div class="col-6" id="home-login-btn">
+                    <button class="btn me-3 shadow btn-custom" type="submit" value="submit">Login</button>
+
+                </div>
+                <div class="col-6" id="home-login-btn">
+                    <a class="btn shadow btn-custom" id="signup"
+                        href="{% url 'expensense:registration_step1' %}">Register</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

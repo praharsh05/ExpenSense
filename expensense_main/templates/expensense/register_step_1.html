@@ -1,0 +1,55 @@
+{% extends 'expensense/base.html' %}
+{% load static %}
+
+{% block title_block %}
+Register - Step 1
+{% endblock %}
+
+{% block new_body_block %}
+<div class="row justify-content-center mb-4">
+  <div class="row border rounded shadow mt-4 p-5 justify-content-center custom-card" id="home-login-form">
+    <h2 class="text-center">Register Step-1</h2>
+    <div class="d-flex justify-content-center main-text">
+      <form class="text-center" method="post" action="{% url 'expensense:registration_step1' %}"
+        enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row p-2 justify-content-center">
+          <div class="row justify-content-center">
+            <input class="m-2 form-control" type="text" name="username" maxlength="150" required id="id_username"
+              size="50" placeholder="Username">
+          </div>
+          <div class="row justify-content-center">
+            <input class="m-2 form-control" type="email" name="email" maxlength="320" required id="id_email" size="50"
+              placeholder="Email">
+          </div>
+          <div class="row justify-content-center">
+            <input class="m-2 form-control" type="password" name="password" required id="id_password" size="50"
+              placeholder="Password">
+          </div>
+          <div class="row justify-content-center">
+            <input class="m-2 form-control" type="text" name="first_name" maxlength="150" required id="id_first_name"
+              size="50" placeholder="First Name">
+          </div>
+          <div class="row justify-content-center">
+            <input class="m-2 form-control" type="text" name="last_name" maxlength="150" required id="id_last_name"
+              size="50" placeholder="Last Name">
+          </div>
+          <div class="row m-2" style="width: 100%;">
+            {{form.role}}
+          </div>
+          <div class="row mt-2 align-items-center">
+            <div class="col justify-content-start" style="color: black; text-align: left; padding-left: 0;">Signature:</div>
+            <div class="col-8 pe-2">
+                <input class="form-control pe-2" type="file" id="id_signature" required name="signature">
+            </div>
+        </div>
+          <div class="row m-2">
+            <input class="btn btn-custom" type="submit" value="Next">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

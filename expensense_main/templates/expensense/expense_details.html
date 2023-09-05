@@ -1,0 +1,111 @@
+{% extends 'expensense/base.html' %}
+{% load static %}
+
+{% block title_block %}
+Log Expense
+{% endblock %}
+
+{% block body_block %}
+<div class="row mb-5 justify-content-center p-3">
+    <h2>Expense Detail of {{expense.expense_name}} from {{expense.user_id.username}}</h2>
+    <div class="row mt-4 justify-content-start">
+        <div class="col-2">
+            Expense Name:
+        </div>
+        <div class="col">{{expense.expense_name}}</div>
+    </div>
+    <div class="row mt-4 justify-content-start">
+        <div class="col-2">
+            Expense By:
+        </div>
+        <div class="col">{{expense.user_id.first_name}} {{expense.user_id.last_name}}</div>
+    </div>
+    <div class="row mt-4 justify-content-start">
+        <div class="col-2">
+            Amount:
+        </div>
+        <div class="col">{{expense.amount}}</div>
+    </div>
+    <div class="row mt-4 justify-content-start">
+        <div class="col-2">
+            Date of Expense:
+        </div>
+        <div class="col">{{expense.expense_date}}</div>
+    </div>
+    <div class="row mt-4 justify-content-start">
+        <div class="col-2">
+            Date of Submission:
+        </div>
+        <div class="col">{{expense.created_at}}</div>
+    </div>
+    <div class="row mt-4 justify-content-start">
+        <div class="col-2">
+            Category:
+        </div>
+        <div class="col">{{expense.category}}</div>
+    </div>
+    {% if expense.note %}
+    <div class="row mt-4 justify-content-start">
+        <div class="col-2">
+            Notes:
+        </div>
+        <div class="col">{{expense.note}}</div>
+    </div>
+    {% endif %}
+    <div class="row mt-4 justify-content-start">
+        <div class="col-2">
+            Status:
+        </div>
+        <div class="col">{{expense.get_status_display}}</div>
+    </div>
+    <div class="row mt-4 justify-content-start">
+        <div class="col-2">
+            Signature Similarity:
+        </div>
+        <div class="col">{{expense.similarity}}</div>
+    </div>
+    <div class="row mt-4 justify-content-start">
+        <div class="col-2">
+            Receipt:
+        </div>
+        <div class="col"><a class="image-link" href="{{expense.receipt.url}}">{{expense.receipt}}</a></div>
+    </div>
+    {% if expense.manager_approved_at %}
+    <div class="row mt-4 justify-content-start">
+        <div class="col-2">
+            Manager Appoval Date and Time:
+        </div>
+        <div class="col">{{expense.manager_approved_at}}</div>
+    </div>
+    {% endif %}
+    {% if expense.admin_approved_at %}
+    <div class="row mt-4 justify-content-start">
+        <div class="col-2">
+            Admin Approval Date and Time:
+        </div>
+        <div class="col">{{expense.admin_approved_at}}</div>
+    </div>
+    {% endif %}
+    {% if expense.manager_auto_approved %}
+    <div class="row mt-4 justify-content-start">
+            <strong>Manager Auto Approved</strong>
+    </div>
+    {% endif %}
+    {% if expense.admin_auto_approved %}
+    <div class="row mt-4 justify-content-start">
+        <strong>Admin Auto Approved</strong>
+    </div>
+    {% endif %}
+    {% if user.role == 'MNG' and expense.status == 0%}
+    <div class="d-grid gap-2 justify-content-center mt-4">
+        <a href="{% url 'expensense:approve_expense' expense.id %}" class="btn btn-custom" role="button">Approve</a>
+        <a href="{% url 'expensense:deny_expense' expense.id %}" class="btn btn-danger" role="button">Deny</a>
+    </div>
+    {% elif user.role == 'ADM' and expense.status == 1 %}
+    <div class="d-grid gap-2 justify-content-center mt-4">
+        <a href="{% url 'expensense:approve_expense' expense.id %}" class="btn btn-custom" role="button">Approve</a>
+        <a href="{% url 'expensense:deny_expense' expense.id %}" class="btn btn-danger" role="button">Deny</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

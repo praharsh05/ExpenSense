@@ -1,0 +1,28 @@
+{% extends 'expensense/base.html' %}
+{% load static %}
+
+{% block title_block %}
+Set Approval Conditions
+{% endblock %}
+
+{% block body_block %}
+<div class="row mb-5 justify-content-center p-3">
+    <div class="row border rounded shadow mt-4 p-5 justify-content-center custom-card" id="home-login-form">
+        <h2 class="text-center">Set Approval Conditions</h2>
+        <div class="d-flex justify-content-center main-text">
+            <form class="text-center" method="post" action="{% url 'expensense:set_approval_conditions' %}"
+                enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="col m-3">
+                    {{form.team}}
+                    <input type="number" class=" mt-2 form-control" name="max_amount" step="0.01" required
+                        id="id_max_amount" placeholder="Max Amount" value="">
+                </div>
+                <div class="row m-3 p-2 ps-6">
+                    <input class="btn btn-custom" type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

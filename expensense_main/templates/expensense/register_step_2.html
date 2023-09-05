@@ -1,0 +1,58 @@
+{% extends 'expensense/base.html' %}
+{% load static %}
+
+{% block title_block %}
+Register - Step 2
+{% endblock %}
+
+{% block new_body_block %}
+<div class="row justify-content-center p-3">
+  <div class="row border rounded shadow mt-4 p-5 justify-content-center custom-card" id="home-login-form">
+    <h2 class="text-center"> Register Step-2</h2>
+    <div class="d-flex justify-content-center main-text">
+      <form class="text-center" id="form" method="post" action="{% url 'expensense:registration_step2' %}"
+        enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row justify-content-center p-2">
+          {% if role == 'EMP' %}
+          <div class="row m-2">
+            {{form.company}}
+          </div>
+          <div class="row m-2">
+            {{form.team_name}}
+          </div>
+          {% elif role == 'ADM' %}
+          <div class="row">
+            <input class="m-2 form-control" type="text" name="company" id="emp-form-comp" required maxlength="128"
+              placeholder="Company Name" size="50">
+          </div>
+          <div class="row">
+            <input class="m-2 form-control" type="number" name="company_budget" id="id_company_budget" required
+              maxlength="1000000000" step="0.01" placeholder="Fiscal Budget">
+          </div>
+          <div class="row text-start" style="color: black;">
+            <label for="categories" class="form-label m-2 ms-0">Select categories for budget</label>
+            {{form.categories}}
+          </div>
+          {% elif role == 'MNG' %}
+          <div class="row justify-content-center">
+            {{form.company}}
+          </div>
+          <div class="row justify-content-center">
+            <input class="m-2 mt-3 form-control" type="text" name="team_name" id="id_team_name"
+              required maxlength="128" placeholder="Team Name" size="50">
+          </div>
+          <div class="row justify-content-center">
+            <input class="m-2 form-control" type="number" name="team_budget" id="id_team_budget"
+              required maxlength="1000000000" step="0.01" placeholder="Team Budget">
+          </div>
+          {% endif %}
+          <div class="row m-3 p-2">
+            <input class="btn btn-custom" type="submit" value="Register">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

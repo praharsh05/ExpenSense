@@ -1,0 +1,49 @@
+{% extends 'expensense/base.html' %}
+{% load static %}
+
+{% block title_block %}
+Budget
+{% endblock %}
+
+{% block body_block %}
+<div class="row mt-2 d-flex flex-direction-column">
+    <h2>Budget</h2>
+    <div class="row mt-2 justify-content-start">
+        {% if budget %}
+        <div class="row m-2 p-2 flex-direction-row">
+            <div class="col shadow rounded p-2 m-2 custom-card">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            {% if user.role == 'ADM' %}
+                            <th class="col" id="th_element">Company</th>
+                            {% elif user.role == 'MNG' %}
+                            <th class="col" id="th_element">Team</th>
+                            {% endif %}
+                            <th class="col" id="th_element">Budget</th>
+                            <th class="col" id="th_element">Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {% if user.role == 'ADM' %}
+                            <td>{{ budget.company }}</td>
+                            <td>{{ budget.company_budget }}</td>
+                            <td><a class="report-links" href="{% url 'expensense:budget' %}">Edit</a></td>
+                            {% elif user.role == 'MNG' %}
+                            <td>{{ budget.team_name }}</td>
+                            <td>{{ budget.team_budget }}</td>
+                            <td><a class="report-links" href="{% url 'expensense:budget' %}">Edit</a></td>
+                            {% endif %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% else %}
+        <p>There is no budget. Let's setup one!</p>
+        <a href="{% url 'expensense:budget' %}" class="btn btn-custom" role="button">Set up!</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

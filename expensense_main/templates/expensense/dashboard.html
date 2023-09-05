@@ -1,0 +1,141 @@
+{% extends 'expensense/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title_block %}
+Dashboard
+{% endblock %}
+
+{% block body_block %}
+<div class="row mt-2">
+    <h2>Dashboard</h2>
+    <div class="row m-2 p-2 flex-direction-row">
+        <div class="col-7 rounded shadow p-2 m-2 custom-card">
+            <h5 class="p-1">Expense Graph</h5>
+            <div class="container">
+            {% if expenses %}
+            <canvas id="expenseChart" style="height: 270px;"></canvas>
+            {% else %}
+            <p>No expenses data available.</p>
+            {% endif %}
+            </div>
+        </div>
+        <div class="col shadow rounded p-2 m-2 custom-card">
+            <h5 class="p-1">Overall Summary</h5>
+            {% if total_amount %}
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-8" id="th_element">Category</th>
+                        <th class="col-4" id="th_element">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total Expenditure</td>
+                        <td>{{total_amount|floatformat:2}}</td>
+                    </tr>
+                    {% for item in amounts_by_category %}
+                    <tr>
+                        <td>{{item.category__category_name}}</td>
+                        <td>{{item.category_amount|floatformat:2}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="container d-flex flex-direction-column justify-content-center align-items-center center">
+                <p class="justify-content-center center">No expenses so far</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row m-2 p-2">
+        <div class="col shadow rounded p-2 m-2 custom-card">
+            <h5 class="p-1">Requests</h5>
+            {% if pending %}
+            <table class="table table-bordered table-striped table-hover">
+                
+                <thead>
+                    <tr>
+                        <th class="col-8" id="th_element">Name</th>
+                        <th class="col-4" id="th_element">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for items in pending %}
+                    <tr>
+                        <td>{{items.user_id.username}}</td>
+                        <td>{{items.amount}}</td>
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+                
+            </table>
+            {% else %}
+            <div class="container d-flex flex-direction-column justify-content-center align-items-center center">
+                <p class="justify-content-center center">No pending requests</p>
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-7 shadow rounded p-2 m-2 custom-card">
+            <h5 class="p-1">Approved Requests</h5>
+            {% if approved %}
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-8" id="th_element">Name</th>
+                        <th class="col-4" id="th_element">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for items in approved %}
+                    <tr>
+                        <td>{{items.user_id.username}}</td>
+                        <td>{{items.amount}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+            {% else %}
+            <div class="container d-flex flex-direction-column justify-content-center align-items-center center">
+                <p class="justify-content-center center">No Approved Requests</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row m-2 p-2 ">
+        <div class="col shadow rounded p-2 m-2 custom-card">
+            <h5 class="p-1">Reports</h5>
+            <table class="table table-bordered table-striped table-hover">
+                <tbody>
+                    {% for report in last_three_reports %}
+                    {% get_start_and_end_dates report %}
+                    <tr>
+                        <td>
+                            {% if start_date %}
+                            <a class="report-links"
+                                href="{% url 'expensense:generate_monthly_expense_pdf' start_date=start_date end_date=end_date %}">
+                                {% if report %}{{ report }}{% else %}No Report{% endif %}</a>
+                            {% else %}
+                            no date range available
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    </div>
+</div>
+</div>
+
+<script src="{% static 'js/my_chart.js' %}"></script>
+<script>
+    // Get the data from Django view
+    var expenses = {{expenses|safe}}
+    // create the chart
+    createExpenseChart(expenses);
+</script>
+{% endblock %}

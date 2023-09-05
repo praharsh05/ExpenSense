@@ -1,0 +1,71 @@
+{% extends 'expensense/base.html' %}
+{% load static %}
+
+{% block title_block %}
+Log Expense
+{% endblock %}
+
+{% block body_block %}
+<div class="row mt-2 d-flex flex-direction-column">
+    <h2>All Expenses</h2>
+    <div class="row mt-2 justify-content-start">
+        {% if page_obj %}
+        <div class="row m-2 p-2 flex-direction-row">
+            <div class="col shadow rounded p-2 m-2 custom-card">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th class="col" id="th_element">User</th>
+                            <th class="col" id="th_element">Expense Name</th>
+                            <th class="col" id="th_element">Amount</th>
+                            <th class="col" id="th_element">Expense Date</th>
+                            <th class="col" id="th_element">Note</th>
+                            <th class="col" id="th_element">Status</th>
+                            <th class="col" id="th_element">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in page_obj %}
+                        <tr>
+                            <td>{{item.user_id}}</td>
+                            <td>{{ item.expense_name }}</td>
+                            <td>{{ item.amount }}</td>
+                            <td>{{ item.expense_date }}</td>
+                            <td>{{ item.note }}</td>
+                            <td>{{ item.get_status_display }}</td>
+                            <td><a class="report-links" href="{% url 'expensense:expense_details' item.id %}">Expand</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center mt-5 pt-4 d-fixed" style="margin-top: auto;">
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1" tabindex="-1" style="color: black;">&laquo;
+                    First</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"
+                    style="color: black;">Previous</a></li>
+            {% endif %}
+            <li class="page-item active">
+                <span class="page-link" id="th_element" style="border-color: #234E70;">
+                    {{ page_obj.number }}
+                </span>
+            </li>
+            {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}"
+                    style="color: black;">Next</a></li>
+            <li class="page-item"></li><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}"
+                style="color: black;">Last &raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% else %}
+    No Pending Requests
+    {% endif %}
+
+</div>
+{% endblock %}
