@@ -105,6 +105,9 @@ the core functionalities are defined in the `views.py` file. this file has class
 
 this class is responsible for the home page of the web application.
 
+![homepage](https://github.com/praharsh05/ExpenSense/assets/75966397/2e847962-545e-4592-9ff6-eb2c19b48c79)
+
+
 ### 2. RegisterStep1View
 
 this class defines the step 1 of the registration process utilising sessions to store user data until step 2 is completed
@@ -125,9 +128,15 @@ this class handles securly loging out a user.
 
 this class contains the functionality of creating a user's role and permission specific dashboard. this class has different methods, each corresponding to different functional components on the dashboard. these are `expense_graph_view` for retriving the data for the expense graph, `overall_summary` for total expenditure and category-wise summary of the expenses, `pending_requests` for displaying those requests that have a pending status for manager and manager approved status for admin, `approved_requests` for displaying the approved requests by the managerial users and the final approved request for employees, `get_last_three_reports` for generating pdf reports for last three calendar months, and the `get` method to combine all the aforementioned methods.
 
+![expensense_dashboard](https://github.com/praharsh05/ExpenSense/assets/75966397/41861058-2af3-448f-ab3d-28b14dcf89b7)
+
+
 ### 7. LogExpenseView
 
 this class handles the `get` and `post` requests of expense form. when a post request is made `calculate_similarity` method is run on the submitted receipt image and user's signature which checks for the signature similarity. the `calculate_similarity` is defined in the `signature_matching.py` file. once signature matching is done, the method creates an expense instance in the expense model.
+
+![log_expense](https://github.com/praharsh05/ExpenSense/assets/75966397/e8bce0bc-fa7d-4a96-8fe2-6212dd930d01)
+
 
 ### 8. OcrApiView
 
@@ -137,9 +146,15 @@ this class is creates the OCR API which is utilised to autofill the expense form
 
 this class aggregates the expenses based on role of the user, orders them in the decreasing order of the expense date and then paginates these expenses by 10 expenses per page.
 
+![expensense_all_expenses](https://github.com/praharsh05/ExpenSense/assets/75966397/28898bb8-6cd6-42e8-8d85-93c866479b19)
+
+
 ### 10. ApprovalConditionView
 
 this class is used to get the existing approval conditions by querying the `ApprovalConditions` model for users with roles other than employees.
+
+![approval_conditions](https://github.com/praharsh05/ExpenSense/assets/75966397/e35f3aa7-7f59-4c1e-abd0-5ccefa3384b9)
+
 
 ### 11. SetApprovalConditions
 
@@ -149,9 +164,15 @@ this class is used to handle setting the approval conditions for different manag
 
 this class is used to show the paginated expense instances which have a staus `pending` for managers and employees, and `manager approved` for admins in their respecive teams and companies.
 
+![pending_requests](https://github.com/praharsh05/ExpenSense/assets/75966397/c58d6f1a-a472-4f2a-8520-f26b5bad6821)
+
+
 ### 13. ExpenseView
 
 this class is utilised to get the expense detail of a particular expense. the `get` method takes in the `request` and `expense_id` as arguments to query the expense model.
+
+![expense_detail](https://github.com/praharsh05/ExpenSense/assets/75966397/c858343b-b2b2-439b-823b-e2aeaea19af4)
+
 
 ### 14. ApproveExpenseView
 
@@ -164,6 +185,9 @@ this class adds the functionality of denying an expense request by managers or a
 ### 16. GenerateExpensePDFView
 
 this class handles the requests for generating the PDF report of the expenses based on user role and start and end date. these dates are passed to the `generate_pdf` method defined in `reports.py`.
+
+![generate_pdf](https://github.com/praharsh05/ExpenSense/assets/75966397/b2e0fe45-f793-4c31-990f-424c23da668c)
+
 
 ### 17. BudgetView
 
